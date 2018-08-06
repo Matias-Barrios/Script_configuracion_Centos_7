@@ -36,6 +36,8 @@ do
     exit 3
   fi
 
+  groupadd $grupo
+
 done <<< "$grupos"
 
 ## Crear Usuarios
@@ -48,6 +50,8 @@ do
     echo "Nombre de usuario no valido : $usuario "
     exit 4
   fi
+
+  useradd -m -d /home/$usuario $usuario
 
 done <<< "$usuarios"
 
