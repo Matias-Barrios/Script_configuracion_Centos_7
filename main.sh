@@ -29,7 +29,7 @@ dirs=$( sed -n '/^\[DIRS\]$/,/^\[END-DIRS\]$/ { /^\[DIRS\]$/d; /^\[END-DIRS\]$/d
 while read grupo
 do
   grupo=$( Trimm "$grupo" )
-  if [[ ! $grupo =~ ^[a-z]{4,16}$ ]] && [[ $grupo =~ ^[^_][^_]*_?[^_]*[^_]$ ]]
+  if [[ ! $grupo =~ ^[a-z]{4,16}$ ]] && [[ ! $grupo =~ ^[^_][^_]*_?[^_]*[^_]$ ]]
   then
     ## Si el nombre no es valido, salgo con  status 3
     echo "Nombre de grupo no valido : $grupo"
@@ -123,7 +123,7 @@ then
 fi
 
 
-if [[ ! $lin_hostname =~ ^[a-z]{4,25}$ ]] && [[ $lin_hostname =~ ^[^_][^_]*_?[^_]*[^_]$ ]]
+if [[ ! $lin_hostname =~ ^[a-z]{4,25}$ ]] && [[ ! $lin_hostname =~ ^[^_][^_]*_?[^_]*[^_]$ ]]
 then
     ## Si el hostname no es valido salir con status 6
     echo "Hostname no valido : $lin_hostname"
