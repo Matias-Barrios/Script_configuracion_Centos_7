@@ -20,13 +20,14 @@ then
     exit 2
 done
 
-grupos=$( sed -n '/^\[GROUPS\]$/,/^\[END-GROUPS\]$/ { /^\[GROUPS\]$/d; /^\[END-GROUPS\]$/d; p; }' config.conf | sed 's/#.*$//g' )
-usuarios=$( sed -n '/^\[USERS\]$/,/^\[END-USERS\]$/ { /^\[USERS\]$/d; /^\[END-USERS\]$/d; p; }' config.conf | sed 's/#.*$//g' )
-config_IP=$( sed -n '/^\[IPCONFIGUSERS\]$/,/^\[END-IPCONFIG\]$/ { /^\[IPCONFIG\]$/d; /^\[END-IPCONFIG\]$/d; p; }' config.conf | sed 's/#.*$//g' )
+grupos=$( sed -n '/^\[GROUPS\]$/,/^\[END-GROUPS\]$/ { /^\[GROUPS\]$/d; /^\[END-GROUPS\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
+usuarios=$( sed -n '/^\[USERS\]$/,/^\[END-USERS\]$/ { /^\[USERS\]$/d; /^\[END-USERS\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
+config_IP=$( sed -n '/^\[IPCONFIGUSERS\]$/,/^\[END-IPCONFIG\]$/ { /^\[IPCONFIG\]$/d; /^\[END-IPCONFIG\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
 
 ## Crear grupos
 while read grupo
 do
+  grupo=$( Trimm "$grupo" )
   if [[ ! $grupo =~ ^[a-z]{4,16}$ ]] && [[ ! $grupo =~ ^[^_][^_]*_?[^_]*[^_]$ ]]
   then
     ## Si el nombre no es valido, salgo con  status 3
@@ -39,6 +40,7 @@ done <<< "$grupos"
 ## Crear Usuarios
 while read usuario
 do
+  usuario=$( Trimm "$usuario" )
   ## Si el nombre no es valido, salgo con  status 3
   if [[ ! $usuario =~ ^[a-z]{4,10}[.][a-z]{4,10}$ ]] && 
   then
@@ -49,11 +51,14 @@ do
 done <<< "$usuarios"
 
 
-ip=$(  Parse_value "ip_addr" "$config_IP" )
-lin_hostname=$(  Parse_value "hostname" "$config_IP" )
+ip=$(  Parse_value "ip_addr" "$config_IP" | Trimm )
+lin_hostname=$(  Parse_value "hostname" "$config_IP" | Trimm  )
+device=$(  Parse_value "device" "$config_IP" | Trimm  )
+base_ip=$(  Parse_value "base_ip" "$config_IP" | Trimm  )
+gateway=$(  Parse_value "gateway" "$config_IP" | Trimm  )
 
 
-if [[ ! "$ip" ~= ^[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}$ ]]
+if [[ ! "$ip" ~= ^[0-9][0-9]?[0-9]?$ ]]
 then
     ## Si la ip no es valida salir con status 5
     echo "Ip no valida : $ip"
@@ -67,3 +72,31 @@ then
     echo "Hostname no valido : $lin_hostname"
     exit 6
 fi
+
+if [[ ! $device =~ ^[a-z]{4,16}[0-9]$ ]]
+then
+    ## Si el nombre de la interfaz no es valido salir con status 6
+    echo "Interfaz no valida : $device"
+    exit 7
+fi
+
+
+if [[ ! $base_ip =~ ^[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}$ ]]
+then
+    ## Si la ip base no es valida salir con status 8
+    echo "Ip base no valida : $base_ip"
+    exit 8
+fi
+
+
+if [[ ! $gateway =~ ^[0-9][0-9]?[0-9]?$ ]]
+then
+    ## Si la ip base no es valida salir con status 8
+    echo "Ip base no valida : $gateway"
+    exit 8
+fi
+
+## Si no es asi, los seteo.
+
+Setear_IP_Hostname_DNS $lin_hostname $device $base_ip $ip_addr $gateway
+
