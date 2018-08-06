@@ -123,7 +123,7 @@ then
 fi
 
 
-if [[ ! $lin_hostname =~ ^[a-z]{4,16}$ ]] && [[ $lin_hostname =~ ^[^_][^_]*_?[^_]*[^_]$ ]]
+if [[ ! $lin_hostname =~ ^[a-z]{4,25}$ ]] && [[ $lin_hostname =~ ^[^_][^_]*_?[^_]*[^_]$ ]]
 then
     ## Si el hostname no es valido salir con status 6
     echo "Hostname no valido : $lin_hostname"
