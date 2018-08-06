@@ -18,7 +18,7 @@ function Parse_value() {
 }
 
 function Trimm() {
-    if [[ ! -z /dev/stdin ]]
+    if [[ -z $1 ]]
     then
         echo "$( cat )" | sed 's/^ *//g; s/ *$//g'
     else
