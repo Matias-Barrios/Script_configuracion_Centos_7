@@ -45,7 +45,7 @@ while read usuario
 do
   usuario=$( Trimm "$usuario" )
   ## Si el nombre no es valido, salgo con  status 3
-  if [[ ! $usuario =~ ^[a-z]{4,20}$ ]] && 
+  if [[ ! $usuario =~ ^[a-z]{4,20}$ ]]  
   then
     echo "Nombre de usuario no valido : $usuario "
     exit 4
