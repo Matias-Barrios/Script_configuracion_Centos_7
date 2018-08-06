@@ -131,7 +131,7 @@ then
     exit 6
 fi
 
-if [[ ! $device =~ ^[a-z]{4,16}[0-9]$ ]]
+if [[ ! $device =~ ^[a-z]{4,16}[0-9][0-9]?$ ]]
 then
     ## Si el nombre de la interfaz no es valido salir con status 6
     echo "Interfaz no valida : $device"
