@@ -44,16 +44,12 @@ function Setear_IP_Hostname_DNS () {
 
         cp /etc/sysconfig/network-scripts/ifcfg-$2 /etc/sysconfig/network-scripts/$2.bk
 
-        cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$2
-
-        DEVICE=$2
-        BOOTPROTO=static
-        IPADDR=$3.$4
-        NETMASK=255.255.255.0
-        GATEWAY=$3.$5
-        ONBOOT=yes
-
-        EOF
+        echo "DEVICE=$2"                > /etc/sysconfig/network-scripts/ifcfg-$2
+        echo "BOOTPROTO=static"         >> /etc/sysconfig/network-scripts/ifcfg-$2
+        echo "IPADDR=$3.$4"             >> /etc/sysconfig/network-scripts/ifcfg-$2
+        echo "NETMASK=255.255.255.0"    >> /etc/sysconfig/network-scripts/ifcfg-$2
+        echo "GATEWAY=$3.$5"            >> /etc/sysconfig/network-scripts/ifcfg-$2
+        echo "ONBOOT=yes"               >> /etc/sysconfig/network-scripts/ifcfg-$2
 
         echo "Changing the dns ..."
         echo ""
