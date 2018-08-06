@@ -110,7 +110,7 @@ do
 done <<< "$dirs"
 
 ip=$(  Parse_value "ip_addr" "$config_IP" | Trimm )
-lin_hostname=$(  Parse_value "hostname" "$config_IP" | Trimm  )
+lin_hostname=$(  Parse_value "lin_hostname" "$config_IP" | Trimm  )
 device=$(  Parse_value "device" "$config_IP" | Trimm  )
 base_ip=$(  Parse_value "base_ip" "$config_IP" | Trimm  )
 gateway=$(  Parse_value "gateway" "$config_IP" | Trimm  )
@@ -154,6 +154,6 @@ then
 fi
 
 ## Si no es asi, los seteo.
-echo "$lin_hostname $device $base_ip $ip_addr $gateway"
-Setear_IP_Hostname_DNS $lin_hostname $device $base_ip $ip_addr $gateway
+echo "$lin_hostname $device $base_ip $ip $gateway"
+#Setear_IP_Hostname_DNS $lin_hostname $device $base_ip $ip $gateway
 
