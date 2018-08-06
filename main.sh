@@ -22,7 +22,7 @@ fi
 
 grupos=$( sed -n '/^\[GROUPS\]$/,/^\[END-GROUPS\]$/ { /^\[GROUPS\]$/d; /^\[END-GROUPS\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
 usuarios=$( sed -n '/^\[USERS\]$/,/^\[END-USERS\]$/ { /^\[USERS\]$/d; /^\[END-USERS\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
-config_IP=$( sed -n '/^\[IPCONFIGUSERS\]$/,/^\[END-IPCONFIG\]$/ { /^\[IPCONFIG\]$/d; /^\[END-IPCONFIG\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
+config_IP=$( sed -n '/^\[IPCONFIG\]$/,/^\[END-IPCONFIG\]$/ { /^\[IPCONFIG\]$/d; /^\[END-IPCONFIG\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
 dirs=$( sed -n '/^\[DIRS\]$/,/^\[END-DIRS\]$/ { /^\[DIRS\]$/d; /^\[END-DIRS\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
 
 ## Crear grupos
