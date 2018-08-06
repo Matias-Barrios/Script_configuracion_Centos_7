@@ -154,6 +154,5 @@ then
 fi
 
 ## Si no es asi, los seteo.
-echo "$lin_hostname $device $base_ip $ip $gateway"
 Setear_IP_Hostname_DNS $lin_hostname $device $base_ip $ip $gateway
 
