@@ -115,7 +115,6 @@ device=$(  Parse_value "device" "$config_IP" | Trimm  )
 base_ip=$(  Parse_value "base_ip" "$config_IP" | Trimm  )
 gateway=$(  Parse_value "gateway" "$config_IP" | Trimm  )
 
-echo "this is ip : $ip"
 if [[ ! "$ip" =~ ^[0-9][0-9]?[0-9]?$ ]]
 then
     ## Si la ip no es valida salir con status 5
@@ -131,7 +130,7 @@ then
     exit 6
 fi
 
-if [[ ! $device =~ ^[a-z]{4,16}[0-9][0-9]?$ ]]
+if [[ ! $device =~ ^[a-z]{2,16}[0-9][0-9]?$ ]]
 then
     ## Si el nombre de la interfaz no es valido salir con status 6
     echo "Interfaz no valida : $device"
