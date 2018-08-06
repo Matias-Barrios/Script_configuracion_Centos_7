@@ -11,14 +11,14 @@ if [[ ! -f config.conf ]]
 then
     echo "No veo ningun archivo llamado 'config.conf', por lo tanto, nos vemos!!"
     exit 1
-done
+fi
 
 ## Si no puedo leer el archivo salgo con status 2
 if [[ ! -r config.conf ]]
 then
     echo "No tengo permisos de lectura a 'config.conf', por lo tanto, nos vemos!!"
     exit 2
-done
+fi
 
 grupos=$( sed -n '/^\[GROUPS\]$/,/^\[END-GROUPS\]$/ { /^\[GROUPS\]$/d; /^\[END-GROUPS\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
 usuarios=$( sed -n '/^\[USERS\]$/,/^\[END-USERS\]$/ { /^\[USERS\]$/d; /^\[END-USERS\]$/d; p; }' config.conf | sed 's/#.*$//g' | Trimm )
