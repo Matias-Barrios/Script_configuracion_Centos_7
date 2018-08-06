@@ -64,13 +64,13 @@ do
   dir_permissions=$( echo "$dir" | awk '{print $2}' | Trimm )
   dir_owner_group=$( echo "$dir" | awk '{print $3}' | Trimm )
   ## Si el nombre no es valido, salgo con  status 10
-  if [[ ! $dir_name =~ ^/[a-z/_{}]{5,250}$ ]] && 
+  if [[ ! $dir_name =~ ^/[a-z/_{}]{5,250}$ ]] 
   then
     echo "Nombre de directorio no valido : $dir_name "
     exit 10
   fi
   ## Si el formato de permisos no es valido, salgo con  status 11
-  if [[ ! $dir_permissions =~ ^0[0-7][0-7][0-7]$ ]] && 
+  if [[ ! $dir_permissions =~ ^0[0-7][0-7][0-7]$ ]] 
   then
     echo "Formato de permisos no valido : $dir_permissions "
     exit 11
