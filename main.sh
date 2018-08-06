@@ -115,7 +115,7 @@ device=$(  Parse_value "device" "$config_IP" | Trimm  )
 base_ip=$(  Parse_value "base_ip" "$config_IP" | Trimm  )
 gateway=$(  Parse_value "gateway" "$config_IP" | Trimm  )
 
-
+echo "this is ip : $ip"
 if [[ ! "$ip" =~ ^[0-9][0-9]?[0-9]?$ ]]
 then
     ## Si la ip no es valida salir con status 5
