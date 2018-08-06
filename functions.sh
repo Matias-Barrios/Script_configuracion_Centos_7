@@ -68,7 +68,7 @@ function Setear_IP_Hostname_DNS () {
 
         echo "Restarting the Network Service, Please connect it using the new IP Address if you are using ssh ..."
 
-        service network restart
+        systemctl restart network
 
     else
 
