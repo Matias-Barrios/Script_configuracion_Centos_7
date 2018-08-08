@@ -44,14 +44,37 @@ done <<< "$grupos"
 while read usuario
 do
   usuario=$( Trimm "$usuario" )
+  nombre_usuario=$( echo "$usuario" | awk '{print $1}' | Trimm )
+  grupos_usuario=$( echo "$usuario" | awk '{print $2}' | Trimm )
+  passwd_usuario=$( echo "$usuario" | awk '{print $3}' | Trimm )
   ## Si el nombre no es valido, salgo con  status 3
-  if [[ ! $usuario =~ ^[a-z]{4,20}$ ]]  
+  if [[ ! $nombre_usuario =~ ^[a-z]{4,20}$ ]]  
   then
-    echo "Nombre de usuario no valido : $usuario "
+    echo "Nombre de usuario no valido : $nombre_usuario "
     exit 4
   fi
+  ## Si el formato de los grupos no es valido, salgo con  status 15
+  if [[ ! $grupos_usuario =~ ^([a-z]{4,20}[,]?)$ ]]  
+  then
+    echo "Grupos de usuario no validos : $grupos_usuario "
+    exit 15
+  fi
+  ## Si el formato de el password no es valido, salgo con  status 16
+  ## Esto busca que el password asignado sea seguro, aunque sea solo un password temporal
+  if [[ -z $( echo "$passwd_usuario" | grep -P '^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$' ) ]]
+  then
+    echo "Password de usuario no valido : $passwd_usuario "
+    exit 16
+  fi
 
-  useradd -m -d /home/$usuario $usuario
+  useradd -m -d /home/$nombre_usuario $nombre_usuario
+  ## Si no se pudo crear el usuario por algun error, salgo con  status 17
+  if [[ $? -ne 0 ]]
+  then
+    echo "Ocurrio un error al crear el usuario"
+    exit 17
+  fi
+  echo -e "$passwd_usuario\n$passwd_usuario" | passwd nombre_usuario
 
 done <<< "$usuarios"
 
