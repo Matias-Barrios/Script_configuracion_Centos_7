@@ -61,7 +61,7 @@ do
   fi
   ## Si el formato de el password no es valido, salgo con  status 16
   ## Esto busca que el password asignado sea seguro, aunque sea solo un password temporal
-  if [[ -z $( echo "$passwd_usuario" | grep -P '^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$' ) ]]
+  if [[ -z $( echo "$passwd_usuario" | grep -P '^(?=.*[A-Z].*)(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$' ) ]]
   then
     echo "Password de usuario no valido : $passwd_usuario "
     exit 16
